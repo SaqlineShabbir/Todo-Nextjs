@@ -1,5 +1,7 @@
 import AddTodo from "@/components/AddTodo";
 import Navbar from "@/components/Navbar";
+import TodoList from "@/components/TodoList";
+import TodoMain from "@/components/TodoMain";
 
 
 export default function Home() {
@@ -9,11 +11,8 @@ export default function Home() {
         <Navbar />
 
         <div className="w-full max-w-3xl shadow-lg rounded-lg p-6 bg-white">
-          <AddTodo />
-          <hr className="mt-4" />
-          {/* <TodoList />
-        <hr className="mt-4" />
-        <Footer /> */}
+          <TodoMain></TodoMain>
+
         </div>
       </div>
 

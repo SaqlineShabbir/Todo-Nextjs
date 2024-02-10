@@ -13,6 +13,11 @@ const todoSchema = new mongoose.Schema({
         required: [true, "status is required"],
         trim: true
     },
+    completed: {
+        type: Boolean,
+        required: [true, "completed is required"],
+
+    },
 }, { timestamps: true });
 
 const Todo = mongoose.models.Todo || mongoose.model("Todo", todoSchema);

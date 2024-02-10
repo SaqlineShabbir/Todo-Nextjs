@@ -4,8 +4,11 @@ import { FaPlus } from "react-icons/fa";
 import { CgNotes } from "react-icons/cg";
 import toast, { Toaster } from 'react-hot-toast';
 
-const AddTodo = () => {
+
+const AddTodo = ({ fetchData, todos }) => {
     const [textInput, setTextInput] = useState('');
+
+    const completedTasks = todos?.filter((todo) => todo?.status === 'complete')
 
     //reset from after adding
     const resetForm = (e) => {
@@ -23,18 +26,15 @@ const AddTodo = () => {
                 },
                 body: JSON.stringify({
                     name: textInput,
-                    status: "in-complete"
+                    status: "in-complete",
+                    completed: false
                 }),
             });
 
             if (response.ok) {
                 toast.success('successfully added');
                 resetForm()
-            } else {
-                const errorData = await response.json();
-                console.log('add failed:', errorData);
-
-                toast.error(errorData.message || 'add failed');
+                fetchData()
             }
         } catch (error) {
             console.error('add failed:', error.message);
@@ -56,6 +56,7 @@ const AddTodo = () => {
                     placeholder="Type your todo and tap enter"
                     className="w-full text-lg px-4 py-1 border-none outline-none bg-gray-100 text-gray-500"
                     value={textInput}
+                    required
                     onChange={(e) => setTextInput(e.target.value)}
                 />
                 <button
@@ -64,6 +65,11 @@ const AddTodo = () => {
                 ><FaPlus className='text-gray-600' /></button>
             </form>
 
+            {/* //counting tasks */}
+            < div className='flex  py-5 justify-between'>
+                <p className=''>Total Tasks {todos?.length}</p>
+                <p>Completed Tasks {completedTasks?.length || 0}</p>
+            </div>
         </div>
     );
 };

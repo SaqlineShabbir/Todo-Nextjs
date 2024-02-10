@@ -2,16 +2,18 @@ import { connect } from "@/connectDB/conectDB";
 import Todo from "@/mongoose/models/todoModel";
 import { NextResponse } from "next/server";
 
-
+//add todo
 export async function POST(request) {
 
     await connect()
     try {
-        const { name, status } = await request.json()
+        const { name, status, completed } = await request.json()
+
         //create todo
         const response = await Todo.create({
             name,
-            status
+            status,
+            completed
 
         });
 
@@ -24,9 +26,37 @@ export async function POST(request) {
         });
 
     } catch (error) {
-        console.error('Error creating service:', error);
+        console.error('Error creating:', error);
         return NextResponse.json({
             error: error.message
         });
+    }
+}
+//get todo
+export async function GET(request) {
+    await connect()
+    try {
+
+        const todos = await Todo.find({})
+
+        if (!todos) {
+            return NextResponse.json({
+                message: error.message
+            });
+
+        }
+        // Return success response
+        return NextResponse.json({
+            message: "successfully get Todos",
+            success: true,
+            todos
+        });
+
+    } catch (error) {
+        console.error('Error getting :', error);
+        return NextResponse.json({
+            message: error.message
+        }, { status: 500 });
+
     }
 }
