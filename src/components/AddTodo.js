@@ -16,7 +16,7 @@ const AddTodo = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://localhost:3000/api/todo', {
+            const response = await fetch('https://todo-nextjs-alpha.vercel.app/api/todo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
