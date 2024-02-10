@@ -13,6 +13,11 @@ const todoSchema = new mongoose.Schema({
         required: [true, "status is required"],
         trim: true
     },
+    priority: {
+        type: String,
+        required: [true, "priority is required"],
+
+    },
     completed: {
         type: Boolean,
         required: [true, "completed is required"],

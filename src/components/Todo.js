@@ -5,11 +5,22 @@ import { MdDelete } from "react-icons/md";
 import EditTodoModal from './EditTodoModal';
 
 const Todo = ({ todo, fetchData }) => {
-    const { name, status, _id, completed } = todo;
+    const { name, status, _id, completed, priority } = todo;
 
     const [openModal, setOpenModal] = useState(false);
-
-
+    console.log('from', priority)
+    const getPriorityColor = (priority) => {
+        switch (priority) {
+            case 'High':
+                return 'text-red-500 bg-red-500 rounded-full';
+            case 'Medium':
+                return 'text-green-500 bg-green-500 rounded-full';
+            case 'Low':
+                return 'text-blue-500  bg-blue-500 rounded-full';
+            default:
+                return 'bg-blue-500';
+        }
+    }
     const handleStatusChange = async (e) => {
         e.preventDefault();
         try {
@@ -65,7 +76,7 @@ const Todo = ({ todo, fetchData }) => {
                 <input
                     type="checkbox"
                     checked={completed}
-                    className="opacity-0 absolute rounded-full cursor-pointer"
+                    className="opacity-0 absolute rounded-full cursor-pointer text-blue-100"
                     onChange={handleStatusChange}
                     disabled={completed}
                 />
@@ -85,16 +96,13 @@ const Todo = ({ todo, fetchData }) => {
             // onBlur={handleTextInput}
             >{name}</p>
 
+            <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer  ${getPriorityColor(priority)}`}
 
+            ></div>
 
-            <div
+            <div><FaRegEdit onClick={() => setOpenModal(true)} size={20} className='text-red-600 cursor-pointer' /></div>
 
-            // onClick={() => handleColorChange(id, 'yellow')}
-            ><FaRegEdit onClick={() => setOpenModal(true)} size={20} className='text-red-600 cursor-pointer' /></div>
-
-            <div
-
-                onClick={(e) => handleDeleteTodo(e)}
+            <div onClick={(e) => handleDeleteTodo(e)}
             ><MdDelete size={20} className='text-red-600 cursor-pointer' /></div>
 
 

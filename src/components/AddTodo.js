@@ -1,13 +1,15 @@
 'use client'
 import React, { useState } from 'react';
-import { FaPlus } from "react-icons/fa";
+import { FaCircle, FaPlus } from "react-icons/fa";
 import { CgNotes } from "react-icons/cg";
 import toast, { Toaster } from 'react-hot-toast';
 
 
 const AddTodo = ({ fetchData, todos }) => {
     const [textInput, setTextInput] = useState('');
+    const [priority, setPriority] = useState('low')
 
+    console.log(priority)
     const completedTasks = todos?.filter((todo) => todo?.status === 'complete')
 
     //reset from after adding
@@ -15,7 +17,7 @@ const AddTodo = ({ fetchData, todos }) => {
         setTextInput('');
     };
 
-    // add todo to data  base
+    // add todo to data base
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -27,7 +29,8 @@ const AddTodo = ({ fetchData, todos }) => {
                 body: JSON.stringify({
                     name: textInput,
                     status: "in-complete",
-                    completed: false
+                    completed: false,
+                    priority
                 }),
             });
 
@@ -47,22 +50,39 @@ const AddTodo = ({ fetchData, todos }) => {
             <Toaster />
             <form
                 onSubmit={handleSubmit}
-                className="flex items-center bg-gray-100 px-4 py-4 rounded-md"
+                className=""
                 action=""
             >
-                <CgNotes size={25} className='text-gray-600' />
-                <input
-                    type="text"
-                    placeholder="Type your todo and tap enter"
-                    className="w-full text-lg px-4 py-1 border-none outline-none bg-gray-100 text-gray-500"
-                    value={textInput}
-                    required
-                    onChange={(e) => setTextInput(e.target.value)}
-                />
-                <button
-                    type="submit"
+                <p>Define priority by selecting</p >
 
-                ><FaPlus className='text-gray-600' /></button>
+                <select
+                    className={`px-2 py-1 bg-gray-100 w-full my-3`}
+                    value={priority}
+                    required
+                    onChange={(e) => setPriority(e.target.value)}
+                >
+                    <option className='text-blue-500' value="Low">Low</option>
+                    <option className='text-green-500' value="Medium">Medium</option>
+                    <option className='text-red-500' value="High">High</option>
+                </select>
+
+
+                <div className='flex items-center bg-gray-100 px-4 py-4 rounded-md'>
+                    <CgNotes size={25} className='text-gray-600' />
+                    <input
+                        type="text"
+                        placeholder="Type your todo and tap enter"
+                        className="w-full text-lg px-4 py-1 border-none outline-none bg-gray-100 text-gray-500"
+                        value={textInput}
+                        required
+                        onChange={(e) => setTextInput(e.target.value)}
+                    />
+                    <button
+                        type="submit"
+
+                    ><FaPlus className='text-gray-600' /></button>
+                </div>
+
             </form>
 
             {/* //counting tasks */}

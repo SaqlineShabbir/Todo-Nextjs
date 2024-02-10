@@ -7,12 +7,13 @@ export async function POST(request) {
 
     await connect()
     try {
-        const { name, status, completed } = await request.json()
+        const { name, status, completed, priority } = await request.json()
 
         //create todo
         const response = await Todo.create({
             name,
             status,
+            priority,
             completed
 
         });
