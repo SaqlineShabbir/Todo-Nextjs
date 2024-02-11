@@ -4,10 +4,11 @@ import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 
 const TodoMain = () => {
-    //Fetch all todo
+
     const [todos, setTodos] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    //fetch todo data
     const fetchData = async () => {
         try {
             const response = await fetch('https://todo-nextjs-alpha.vercel.app/api/todo', {

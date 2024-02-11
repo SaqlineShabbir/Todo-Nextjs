@@ -7,9 +7,9 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const AddTodo = ({ fetchData, todos }) => {
     const [textInput, setTextInput] = useState('');
-    const [priority, setPriority] = useState('low')
+    const [priority, setPriority] = useState('Low')
 
-    console.log(priority)
+
     const completedTasks = todos?.filter((todo) => todo?.status === 'complete')
 
     //reset from after adding

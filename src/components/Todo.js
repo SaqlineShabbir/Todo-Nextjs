@@ -8,7 +8,7 @@ const Todo = ({ todo, fetchData }) => {
     const { name, status, _id, completed, priority } = todo;
 
     const [openModal, setOpenModal] = useState(false);
-    console.log('from', priority)
+
     const getPriorityColor = (priority) => {
         switch (priority) {
             case 'High':

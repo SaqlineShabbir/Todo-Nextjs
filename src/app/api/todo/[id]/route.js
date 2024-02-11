@@ -46,15 +46,15 @@ export async function DELETE(request, { params }) {
         // Assuming the ID is passed as a parameter in the URL
         const todo = await Todo.findOneAndDelete({ _id: id });
 
-        // Check if the booking was found and updated
+        // Check if the todo was found and updated
         if (!todo) {
             return NextResponse.json({
                 message: "todo not found",
                 success: false,
-            }); // Using 404 Not Found for resource not found
+            });
         }
 
-        // Return success response with the updated booking data
+        // Return success response with the updated todo data
         return NextResponse.json({
             message: "Successfully Deleted Todo",
             success: true,
